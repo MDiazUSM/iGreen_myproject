@@ -3,11 +3,22 @@
 {% block title %}Tabla de Posiciones{% endblock %}
 
 {% block content %}
-<h1>Tabla de Posiciones</h1>
-<ol>
-    {% for user in users %}
-    <li>{{ user.username }} - {{ user.score }} puntos</li>
-    {% endfor %}
-</ol>
-{% endblock %}
+<div class="leaderboard-container">
+    <!-- Título estilizado -->
+    <h1 class="leaderboard-title">
+        Tabla de Posiciones
+    </h1>
 
+    <!-- Lista de posiciones -->
+    <ol class="leaderboard-list">
+        {% for user in users %}
+        <li class="leaderboard-item">
+            <!-- Nombre del usuario -->
+            <span class="username">{{ user.username }}</span>
+            <!-- Puntuación -->
+            <span class="score">{{ user.score }} puntos</span>
+        </li>
+        {% endfor %}
+    </ol>
+</div>
+{% endblock %}
