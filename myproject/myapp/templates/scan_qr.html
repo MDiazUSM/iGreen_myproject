@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Escanear QR{% endblock %}
+
+{% block content %}
+<h1>Escanear Código QR</h1>
+<div id="reader"></div>
+<div id="result" aria-live="polite"></div>
+<button id="restart-button" style="display: none;" onclick="restartScanner()">Escanear otro código</button>
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+<script>
+let html5QrcodeScanner;
+
+function onScanSuccess(decodedText, decodedResult) {
+    html5QrcodeScanner.pause();
+    
+    fetch('{% url "scan_qr" %}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({code: decodedText})
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('result').innerHTML = `
+                <p>¡Código escaneado correctamente!</p>
+                <p>Puntos ganados: ${data.points_earned}</p>
+                <p>Tu nuevo puntaje total: ${data.new_score}</p>
+                <p>Este código ha sido escaneado ${data.total_scans} veces.</p>
+            `;
+        } else {
+            document.getElementById('result').innerHTML = `<p>${data.message}</p>`;
+        }
+        document.getElementById('reader').style.display = 'none';
+        document.getElementById('restart-button').style.display = 'block';
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('result').innerHTML = '<p>Ocurrió un error al procesar el código QR.</p>';
+        document.getElementById('restart-button').style.display = 'block';
+    });
+}
+
+function restartScanner() {
+    document.getElementById('reader').style.display = 'block';
+    document.getElementById('result').innerHTML = '';
+    document.getElementById('restart-button').style.display = 'none';
+    html5QrcodeScanner.resume();
+}
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    html5QrcodeScanner = new Html5QrcodeScanner(
+        "reader",
+        { fps: 10, qrbox: 250 },
+        /* verbose= */ false);
+    html5QrcodeScanner.render(onScanSuccess);
+});
+</script>
+{% endblock %}

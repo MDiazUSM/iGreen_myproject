@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="text">
+    <span class="plant-icon">🌱</span>
+    <span class="i">I</span>
+    <span>GREEN</span>
+</div>
+
+<div class="button-container">
+    {% if user.is_authenticated %}
+        <a href="{% url 'scan_qr' %}" class="start-button">ESCANEAR QR</a>
+    {% else %}
+        <a href="{% url 'login' %}" class="start-button">INICIAR SESIÓN</a>
+    {% endif %}
+</div>
+{% endblock %}
+

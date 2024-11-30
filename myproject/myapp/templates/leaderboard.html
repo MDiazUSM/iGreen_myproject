@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Tabla de Posiciones{% endblock %}
+
+{% block content %}
+<h1>Tabla de Posiciones</h1>
+<ol>
+    {% for user in users %}
+    <li>{{ user.username }} - {{ user.score }} puntos</li>
+    {% endfor %}
+</ol>
+{% endblock %}
+
