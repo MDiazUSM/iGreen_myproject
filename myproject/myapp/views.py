@@ -60,3 +60,6 @@ def leaderboard(request):
 def logout_view(request):
     logout(request)
     return redirect('index')
+
+def quienesomos(request):
+    return render(request, 'quienesomos.html')

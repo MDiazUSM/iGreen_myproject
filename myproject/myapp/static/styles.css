@@ -10,23 +10,37 @@ body {
     background-color: #f3f9f3; /* Suave tono verde claro */
     color: #333;
     padding-bottom: 200px;
+    background-color: #f3f9f3; /* Fallback color */
+    background-image: url('/static/images/fondo-zoom-USM.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
 
 /* Contenedor general */
 .container {
     text-align: center;
-    padding: 20px;
-    max-width: 800px;
-    width: 100%;
+    padding: 15px;
+    max-width: 600px;
+    width: 90%;
     position: relative;
     z-index: 1;
-    padding-top: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    min-height: calc(100vh - 60px);
+    justify-content: center; /* Centra el contenido verticalmente */
+    min-height: auto;
+    height: auto;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+
+    /* Centrado en la pantalla */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
+
 
 /* Navbar */
 nav {
@@ -79,6 +93,13 @@ h1 {
     margin-bottom: 20px;
 }
 
+/* REGISTRO */
+
+
+
+/* FIN REGISTRO */
+
+
 /* Botón */
 .start-button {
     font-size: 1.5rem;
@@ -130,6 +151,10 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    max-width: 500px; /* Ajusta este valor según necesites */
+    margin: 0 auto;
+    padding: 20px;
 }
 
 form p {
@@ -220,7 +245,9 @@ ol li {
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, background-color 0.3s ease;
+    counter-increment: item;
 }
+ 
 
 .leaderboard-item:nth-child(odd) {
     background-color: #eaf7ea;
@@ -231,12 +258,24 @@ ol li {
     background-color: #dff5df;
 }
 
-/* Iconos de posición */
 .leaderboard-item::before {
-    content: '🥇';
-    font-size: 1.2rem;
-    color: #ffcc00;
+    content: counter(item);
+    font-size: 1rem;
+    color: #555;
+    font-weight: bold;
     grid-column: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
+}
+
+.leaderboard-item:nth-child(1)::before {
+    content: '🥇';
+    color: #ffcc00;
 }
 
 .leaderboard-item:nth-child(2)::before {
@@ -247,6 +286,11 @@ ol li {
 .leaderboard-item:nth-child(3)::before {
     content: '🥉';
     color: #cd7f32;
+}
+
+/* Reiniciar el contador para el cuarto elemento */
+.leaderboard-item:nth-child(4) {
+    counter-reset: item 3;
 }
 
 .username {

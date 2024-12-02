@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="about-us-container">
+    <div class="text">
+        <span class="plant-icon">🌱</span>
+        <span class="i">I</span>
+        <span>GREEN</span>
+    </div>
+
+    <h1 class="about-us-title">¿Quiénes Somos?</h1>
+
+    <div class="about-us-content">
+        <section class="about-us-section">
+            <h2>Nuestra Misión</h2>
+            <p>En IGREEN, buscamos promover e incentivar un estilo de vida sustentable entre quienes forman parte de la comunidad de la Universidad Técnica Federico Santa María.</p>
+        </section>
+
+        <section class="about-us-section">
+            <h2>Nuestra Historia</h2>
+            <p>Como estudiantes de Ingeniería Informática de la USM, en el marco de la asignatura Introducción a la Ingeniería, surgió la idea de contribuir al cuidado del medioambiente. Por ello, desarrollamos una página destinada a motivar y fomentar la sustentabilidad dentro y fuera de nuestra universidad.</p>
+        </section>
+
+        <section class="about-us-section">
+            <h2>Nuestro Equipo</h2>
+            <p>Somos un grupo de estudiantes apasionados por la tecnología y el medioambiente. Trabajamos juntos para crear herramientas y soluciones que promuevan la sostenibilidad en nuestra universidad y motiven a nuestra comunidad a adoptar prácticas más responsables con el entorno.</p>
+        </section>        
+
+        <section class="about-us-section">
+            <h2>Nuestro Compromiso</h2>
+            <p>Nos comprometemos a liderar con el ejemplo. Todas nuestras operaciones están diseñadas para minimizar nuestro impacto ambiental y maximizar nuestro impacto positivo en la comunidad y el planeta.</p>
+        </section>
+    </div>
+
+    <div class="button-container">
+        {% if user.is_authenticated %}
+            <a href="{% url 'scan_qr' %}" class="start-button">ESCANEAR QR</a>
+        {% else %}
+            <a href="{% url 'login' %}" class="start-button">INICIAR SESIÓN</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
